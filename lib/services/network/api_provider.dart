@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:responsive_admin_dashboard/screens/customer_page/model/customer_response.dart';
 
 import 'api_client/api_client.dart';
 import 'api_client/model/general_response.dart';
@@ -37,5 +41,22 @@ class APIProviderIml {
     print("${response.data}");
     print("===== loginAPI Response End =======");
     return GeneralResponse.fromJson(response.data);
+  }
+
+  /// api for get all customer list
+  Future<CustomerResponse> fetchAllCustomerList(context) async {
+    Response response;
+    print("===== fetchAllCustomerList Response Start =======");
+    FormData data = FormData.fromMap({
+      'action': "OTP_LOGIN",
+    });
+    response = await _apiClient.post("/users.php", data: data);
+    print("${response.data}");
+
+    String jsonString =
+        await DefaultAssetBundle.of(context).loadString("assets/customer.json");
+    return CustomerResponse.fromJson(jsonDecode(jsonString));
+    print("===== fetchAllCustomerList Response End =======");
+    return CustomerResponse.fromJson(response.data);
   }
 }
