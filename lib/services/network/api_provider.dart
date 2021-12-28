@@ -55,8 +55,7 @@ class APIProviderIml {
 
     String jsonString =
         await DefaultAssetBundle.of(context).loadString("assets/customer.json");
-    return CustomerResponse.fromJson(jsonDecode(jsonString));
     print("===== fetchAllCustomerList Response End =======");
-    return CustomerResponse.fromJson(response.data);
+    return CustomerResponse.fromJson(jsonDecode(jsonString));
   }
 }
