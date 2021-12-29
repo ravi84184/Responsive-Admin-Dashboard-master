@@ -1,17 +1,31 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_admin_dashboard/constants/constants.dart';
 import 'package:responsive_admin_dashboard/constants/responsive.dart';
+import 'package:responsive_admin_dashboard/screens/company_page/controller/company_controller.dart';
 
-import 'create_customer_dialog/create_customer_dialog.dart';
+import 'create_company_dialog/create_company_dialog.dart';
 
-class CustomerPage extends StatefulWidget {
-  const CustomerPage({Key? key}) : super(key: key);
+class CompanyPage extends StatefulWidget {
+  const CompanyPage({Key? key}) : super(key: key);
 
   @override
-  _CustomerPageState createState() => _CustomerPageState();
+  _CompanyPageState createState() => _CompanyPageState();
 }
 
-class _CustomerPageState extends State<CustomerPage> {
+class _CompanyPageState extends State<CompanyPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      Provider.of<CompanyController>(context, listen: false)
+          .getCompanyList(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,7 +37,7 @@ class _CustomerPageState extends State<CustomerPage> {
             Row(
               children: [
                 Text(
-                  "Customer",
+                  "Company",
                   style: TextStyle(
                     color: textColor,
                     fontWeight: FontWeight.bold,
@@ -39,7 +53,7 @@ class _CustomerPageState extends State<CustomerPage> {
                           context: context,
                           builder: (context) {
                             return Dialog(
-                              child: CreateCustomerDialog(),
+                              child: CreateCompanyDialog(),
                             );
                           });
                     }
@@ -63,67 +77,51 @@ class _CustomerPageState extends State<CustomerPage> {
             SizedBox(
               height: appPadding,
             ),
-            Table(
-              border: TableBorder.all(),
-              columnWidths: {
-                0: FlexColumnWidth(1),
-                1: FlexColumnWidth(4),
-                2: FlexColumnWidth(4),
-                3: FlexColumnWidth(2),
-                4: FlexColumnWidth(1),
-              },
-              children: [
-                TableRow(
-                  children: [
-                    _tableHeader("No"),
-                    _tableHeader("Company Name"),
-                    _tableHeader("Owner Name"),
-                    _tableHeader("Order"),
-                    _tableHeader("Action"),
-                  ],
-                ),
-                for (var model in [
-                  1,
-                  2,
-                  3,
-                  4,
-                  5,
-                  6,
-                  7,
-                  8,
-                  9,
-                  10,
-                  11,
-                  12,
-                  13,
-                  14,
-                  15,
-                  16,
-                  17,
-                  18
-                ])
+            Consumer<CompanyController>(builder: (context, data, child) {
+              return Table(
+                border: TableBorder.all(),
+                columnWidths: {
+                  0: FlexColumnWidth(1),
+                  1: FlexColumnWidth(4),
+                  2: FlexColumnWidth(4),
+                  3: FlexColumnWidth(2),
+                  4: FlexColumnWidth(1),
+                },
+                children: [
                   TableRow(
                     children: [
-                      _tableBody("$model"),
-                      _tableBody("Company Name"),
-                      _tableBody("Owner Name"),
-                      _tableBody("Order"),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.edit),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Icon(Icons.delete),
-                        ],
-                      ),
+                      _tableHeader("No"),
+                      _tableHeader("Company Name"),
+                      _tableHeader("Owner Name"),
+                      _tableHeader("Address"),
+                      _tableHeader("Action"),
                     ],
                   ),
-              ],
-            ),
+                  if (data.companyList != null)
+                    for (var model in data.companyList!)
+                      TableRow(
+                        children: [
+                          _tableBody("$model"),
+                          _tableBody("${model.companyName}"),
+                          _tableBody("${model.ownerName}"),
+                          _tableBody("${model.companyAddress}"),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(Icons.edit),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Icon(Icons.delete),
+                            ],
+                          ),
+                        ],
+                      ),
+                ],
+              );
+            }),
           ],
         ),
       ),

@@ -1,13 +1,13 @@
 import 'package:responsive_admin_dashboard/services/network/api_client/model/common_response.dart';
 
-class CustomerResponse extends CommonResponse {
-  late List<CustomerPayload> payload;
+class CompanyResponse extends CommonResponse {
+  late List<CompanyPayload> payload;
 
-  CustomerResponse.fromJson(Map<String, dynamic> json) {
+  CompanyResponse.fromJson(Map<String, dynamic> json) {
     if (json['payload'] != null) {
-      payload = <CustomerPayload>[];
+      payload = <CompanyPayload>[];
       json['payload'].forEach((v) {
-        payload.add(new CustomerPayload.fromJson(v));
+        payload.add(new CompanyPayload.fromJson(v));
       });
     }
     error = (json['error'] != null ? new Error.fromJson(json['error']) : null)!;
@@ -25,7 +25,7 @@ class CustomerResponse extends CommonResponse {
   }
 }
 
-class CustomerPayload {
+class CompanyPayload {
   late String id;
   late String companyName;
   late String companyAddress;
@@ -37,7 +37,7 @@ class CustomerPayload {
   late String paymentCycle;
   late String gstNo;
 
-  CustomerPayload.fromJson(Map<String, dynamic> json) {
+  CompanyPayload.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? "";
     companyName = json['company_name'] ?? "";
     companyAddress = json['company_address'] ?? "";

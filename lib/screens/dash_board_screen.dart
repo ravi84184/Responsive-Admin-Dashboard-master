@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:responsive_admin_dashboard/constants/constants.dart';
 import 'package:responsive_admin_dashboard/constants/responsive.dart';
 import 'package:responsive_admin_dashboard/controllers/controller.dart';
-import 'package:responsive_admin_dashboard/screens/customer_page/customer_page.dart';
 import 'package:responsive_admin_dashboard/screens/order_page/order_page.dart';
 import 'package:responsive_admin_dashboard/screens/payment_page/payment_page.dart';
 
+import 'company_page/company_page.dart';
 import 'components/custom_appbar.dart';
 import 'components/dashboard_content.dart';
 import 'components/drawer_menu.dart';
@@ -41,7 +41,7 @@ class DashBoardScreen extends StatelessWidget {
                           return DashboardContent();
                         }
                         if (value.selectedMenu == MenuItem.Customer) {
-                          return CustomerPage();
+                          return CompanyPage();
                         }
                         if (value.selectedMenu == MenuItem.Payment) {
                           return PaymentPage();

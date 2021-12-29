@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_admin_dashboard/screens/customer_page/model/customer_response.dart';
+import 'package:responsive_admin_dashboard/screens/company_page/model/company_response.dart';
 
 import 'api_client/api_client.dart';
 import 'api_client/model/general_response.dart';
@@ -44,18 +44,34 @@ class APIProviderIml {
   }
 
   /// api for get all customer list
-  Future<CustomerResponse> fetchAllCustomerList(context) async {
+  Future<CompanyResponse> fetchAllCompanyList(context) async {
     Response response;
     print("===== fetchAllCustomerList Response Start =======");
     FormData data = FormData.fromMap({
-      'action': "OTP_LOGIN",
+      'ACTION_KEY': "COMPANY_LIST",
     });
-    response = await _apiClient.post("/users.php", data: data);
+    response = await _apiClient.post("/company_controller.php", data: data);
     print("${response.data}");
 
     String jsonString =
         await DefaultAssetBundle.of(context).loadString("assets/customer.json");
     print("===== fetchAllCustomerList Response End =======");
-    return CustomerResponse.fromJson(jsonDecode(jsonString));
+    return CompanyResponse.fromJson(jsonDecode(jsonString));
+  }
+
+  /// api for get all customer list
+  Future<CompanyResponse> fetchAllOrderList(context) async {
+    Response response;
+    print("===== fetchAllCustomerList Response Start =======");
+    FormData data = FormData.fromMap({
+      'ACTION_KEY': "COMPANY_LIST",
+    });
+    response = await _apiClient.post("/company_controller.php", data: data);
+    print("${response.data}");
+
+    String jsonString =
+        await DefaultAssetBundle.of(context).loadString("assets/customer.json");
+    print("===== fetchAllCustomerList Response End =======");
+    return CompanyResponse.fromJson(jsonDecode(jsonString));
   }
 }

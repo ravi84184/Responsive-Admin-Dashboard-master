@@ -16,7 +16,7 @@ class ApiClient {
   final Dio dio;
 
   ApiClient(this.dio) {
-    dio.options.baseUrl = "";
+    dio.options.baseUrl = "http://localhost/duraplast/api";
     dio.options.connectTimeout = const Duration(minutes: 3).inMilliseconds;
     dio.options.receiveTimeout = const Duration(minutes: 3).inMilliseconds;
     dio.options.headers = {

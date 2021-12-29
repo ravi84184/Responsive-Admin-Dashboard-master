@@ -1,24 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
-import 'package:responsive_admin_dashboard/screens/customer_page/model/customer_response.dart';
+import 'package:responsive_admin_dashboard/screens/company_page/model/company_response.dart';
 import 'package:responsive_admin_dashboard/services/network/api_provider.dart';
 
-class CustomerController with ChangeNotifier {
+class CompanyController with ChangeNotifier {
   APIProviderIml _apiProviderIml = GetIt.I.get<APIProviderIml>();
-  List<CustomerPayload>? customerList;
+  List<CompanyPayload>? companyList;
 
-  void addCustomer(context) {}
+  void addCompany(context) {}
 
-  void updateCustomer(context, id) {}
+  void updateCompany(context, id) {}
 
-  Future<void> getCustomerList(context) async {
+  Future<void> getCompanyList(context) async {
     try {
-      var result = await _apiProviderIml.fetchAllCustomerList(context);
+      var result = await _apiProviderIml.fetchAllCompanyList(context);
       if (result.error.code == 200) {
-        customerList = result.payload;
+        companyList = result.payload;
         notifyListeners();
       } else {
-        customerList = [];
+        companyList = [];
+        notifyListeners();
       }
     } catch (e) {
       print("getCustomerList ${e.toString()}");

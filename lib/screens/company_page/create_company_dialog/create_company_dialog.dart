@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CreateCustomerDialog extends StatefulWidget {
-  const CreateCustomerDialog({Key? key}) : super(key: key);
+class CreateCompanyDialog extends StatefulWidget {
+  const CreateCompanyDialog({Key? key}) : super(key: key);
 
   @override
-  _CreateCustomerDialogState createState() => _CreateCustomerDialogState();
+  _CreateCompanyDialogState createState() => _CreateCompanyDialogState();
 }
 
-class _CreateCustomerDialogState extends State<CreateCustomerDialog> {
+class _CreateCompanyDialogState extends State<CreateCompanyDialog> {
   TextEditingController _companyController = TextEditingController();
   TextEditingController _companyMobileController = TextEditingController();
   TextEditingController _companyEmailController = TextEditingController();
