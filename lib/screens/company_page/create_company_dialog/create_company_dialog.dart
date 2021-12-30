@@ -118,6 +118,7 @@ class _CreateCompanyDialogState extends State<CreateCompanyDialog> {
                   )),
                 ],
               ),
+
             ],
           ),
         ),

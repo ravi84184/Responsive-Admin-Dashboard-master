@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:responsive_admin_dashboard/screens/company_page/model/company_response.dart';
+import 'package:responsive_admin_dashboard/screens/order_page/model/order_response.dart';
+import 'package:responsive_admin_dashboard/screens/payment_page/model/payment_response.dart';
 
 import 'api_client/api_client.dart';
 import 'api_client/model/general_response.dart';
@@ -51,27 +50,34 @@ class APIProviderIml {
       'ACTION_KEY': "COMPANY_LIST",
     });
     response = await _apiClient.post("/company_controller.php", data: data);
-    print("${response.data}");
-
-    String jsonString =
-        await DefaultAssetBundle.of(context).loadString("assets/customer.json");
+    print("data ${response.data}");
     print("===== fetchAllCustomerList Response End =======");
-    return CompanyResponse.fromJson(jsonDecode(jsonString));
+    return CompanyResponse.fromJson(response.data);
   }
 
   /// api for get all customer list
-  Future<CompanyResponse> fetchAllOrderList(context) async {
+  Future<OrderResponse> fetchAllOrderList(context) async {
     Response response;
-    print("===== fetchAllCustomerList Response Start =======");
+    print("===== fetchAllOrderList Response Start =======");
     FormData data = FormData.fromMap({
-      'ACTION_KEY': "COMPANY_LIST",
+      'ACTION_KEY': "ORDER_LIST",
     });
-    response = await _apiClient.post("/company_controller.php", data: data);
+    response = await _apiClient.post("/order_controller.php", data: data);
     print("${response.data}");
+    print("===== fetchAllOrderList Response End =======");
+    return OrderResponse.fromJson(response.data);
+  }
 
-    String jsonString =
-        await DefaultAssetBundle.of(context).loadString("assets/customer.json");
-    print("===== fetchAllCustomerList Response End =======");
-    return CompanyResponse.fromJson(jsonDecode(jsonString));
+  /// api for get all customer list
+  Future<PaymentResponse> fetchAllPaymentList(context) async {
+    Response response;
+    print("===== fetchAllPaymentList Response Start =======");
+    FormData data = FormData.fromMap({
+      'ACTION_KEY': "PAYMENT_LIST",
+    });
+    response = await _apiClient.post("/payment_controller.php", data: data);
+    print("${response.data}");
+    print("===== fetchAllPaymentList Response End =======");
+    return PaymentResponse.fromJson(response.data);
   }
 }

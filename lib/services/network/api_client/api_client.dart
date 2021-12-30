@@ -16,17 +16,21 @@ class ApiClient {
   final Dio dio;
 
   ApiClient(this.dio) {
-    dio.options.baseUrl = "http://localhost/duraplast/api";
+    dio.options.baseUrl = "https://book.apuzztech.com/duraplast/api/";
     dio.options.connectTimeout = const Duration(minutes: 3).inMilliseconds;
     dio.options.receiveTimeout = const Duration(minutes: 3).inMilliseconds;
     dio.options.headers = {
       'Content-Type': 'application/json',
-      'Charset': 'utf-8'
+      'Charset': 'utf-8',
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": "true",
+      "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+      "Access-Control-Allow-Methods": "POST, OPTIONS"
     };
     //TODO: need to fix
-    dio.interceptors.add(ApiErrorMessageInterceptor());
-    dio.interceptors.add(InternalServerErrorInterceptor());
-    dio.interceptors.add(UnauthorizedInterceptor());
+    // dio.interceptors.add(ApiErrorMessageInterceptor());
+    // dio.interceptors.add(InternalServerErrorInterceptor());
+    // dio.interceptors.add(UnauthorizedInterceptor());
     dio.interceptors.add(LogInterceptor(
       requestHeader: false,
       requestBody: true,
@@ -57,7 +61,11 @@ class ApiClient {
         data: data,
         onSendProgress: onSendProgress ?? null,
         options: Options(
-            headers: {'Content-Type': 'application/json', 'Charset': 'utf-8'}),
+            headers: {'Content-Type': 'application/json', 'Charset': 'utf-8',
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Credentials": "true",
+              "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+              "Access-Control-Allow-Methods": "POST, OPTIONS"}),
       );
     } on InternalServerApiError {
       throw InternalServerException();
@@ -76,7 +84,12 @@ class ApiClient {
   /// put method for api call
   Future<Response> put(String path, dynamic data) async {
     try {
-      return await dio.put(path, data: data);
+      return await dio.put(path, data: data,options: Options(
+          headers: {'Content-Type': 'application/json', 'Charset': 'utf-8',
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+            "Access-Control-Allow-Methods": "POST, OPTIONS"}),);
     } on InternalServerApiError {
       throw InternalServerException();
     } on UnauthorizedApiError {
@@ -94,7 +107,12 @@ class ApiClient {
   /// delete method for api call
   Future<Response> delete(String path) async {
     try {
-      return await dio.delete(path);
+      return await dio.delete(path,options: Options(
+          headers: {'Content-Type': 'application/json', 'Charset': 'utf-8',
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+            "Access-Control-Allow-Methods": "POST, OPTIONS"}),);
     } on InternalServerApiError {
       throw InternalServerException();
     } on UnauthorizedApiError {
@@ -115,7 +133,12 @@ class ApiClient {
     dynamic data,
   }) async {
     try {
-      return await dio.get(path, queryParameters: data);
+      return await dio.get(path, queryParameters: data,options: Options(
+          headers: {'Content-Type': 'application/json', 'Charset': 'utf-8',
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+            "Access-Control-Allow-Methods": "POST, OPTIONS"}),);
     } on InternalServerApiError {
       throw InternalServerException();
     } on UnauthorizedApiError {

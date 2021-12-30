@@ -81,16 +81,14 @@ class _CompanyPageState extends State<CompanyPage> {
               return Table(
                 border: TableBorder.all(),
                 columnWidths: {
-                  0: FlexColumnWidth(1),
+                  0: FlexColumnWidth(4),
                   1: FlexColumnWidth(4),
-                  2: FlexColumnWidth(4),
-                  3: FlexColumnWidth(2),
-                  4: FlexColumnWidth(1),
+                  2: FlexColumnWidth(2),
+                  3: FlexColumnWidth(1),
                 },
                 children: [
                   TableRow(
                     children: [
-                      _tableHeader("No"),
                       _tableHeader("Company Name"),
                       _tableHeader("Owner Name"),
                       _tableHeader("Address"),
@@ -101,7 +99,6 @@ class _CompanyPageState extends State<CompanyPage> {
                     for (var model in data.companyList!)
                       TableRow(
                         children: [
-                          _tableBody("$model"),
                           _tableBody("${model.companyName}"),
                           _tableBody("${model.ownerName}"),
                           _tableBody("${model.companyAddress}"),

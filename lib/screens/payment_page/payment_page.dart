@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_admin_dashboard/constants/constants.dart';
+import 'package:responsive_admin_dashboard/screens/payment_page/controller/payment_controller.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({Key? key}) : super(key: key);
@@ -9,6 +11,17 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPageState extends State<PaymentPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      Provider.of<PaymentController>(context, listen: false)
+          .getPaymentList(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -46,67 +59,51 @@ class _PaymentPageState extends State<PaymentPage> {
             SizedBox(
               height: appPadding,
             ),
-            Table(
-              border: TableBorder.all(),
-              columnWidths: {
-                0: FlexColumnWidth(1),
-                1: FlexColumnWidth(4),
-                2: FlexColumnWidth(4),
-                3: FlexColumnWidth(2),
-                4: FlexColumnWidth(1),
-              },
-              children: [
-                TableRow(
-                  children: [
-                    _tableHeader("No"),
-                    _tableHeader("Company Name"),
-                    _tableHeader("Owner Name"),
-                    _tableHeader("Order"),
-                    _tableHeader("Action"),
-                  ],
-                ),
-                for (var model in [
-                  1,
-                  2,
-                  3,
-                  4,
-                  5,
-                  6,
-                  7,
-                  8,
-                  9,
-                  10,
-                  11,
-                  12,
-                  13,
-                  14,
-                  15,
-                  16,
-                  17,
-                  18
-                ])
+            Consumer<PaymentController>(builder: (context, data, child) {
+              return Table(
+                border: TableBorder.all(),
+                columnWidths: {
+                  0: FlexColumnWidth(4),
+                  1: FlexColumnWidth(2),
+                  2: FlexColumnWidth(2),
+                  3: FlexColumnWidth(2),
+                  4: FlexColumnWidth(1),
+                },
+                children: [
                   TableRow(
                     children: [
-                      _tableBody("$model"),
-                      _tableBody("Company Name"),
-                      _tableBody("Owner Name"),
-                      _tableBody("Order"),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.edit),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Icon(Icons.delete),
-                        ],
-                      ),
+                      _tableHeader("Company Name"),
+                      _tableHeader("Date"),
+                      _tableHeader("Type"),
+                      _tableHeader("Amount"),
+                      _tableHeader("Action"),
                     ],
                   ),
-              ],
-            ),
+                  if (data.paymentList != null)
+                    for (var model in data.paymentList!)
+                      TableRow(
+                        children: [
+                          _tableBody("${model.companyName}"),
+                          _tableBody("${model.date}"),
+                          _tableBody("${model.type}"),
+                          _tableBody("${model.amount}"),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(Icons.edit),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Icon(Icons.delete),
+                            ],
+                          ),
+                        ],
+                      ),
+                ],
+              );
+            }),
           ],
         ),
       ),
