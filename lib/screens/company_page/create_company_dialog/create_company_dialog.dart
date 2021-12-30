@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_admin_dashboard/common/widget/app_button.dart';
 
 class CreateCompanyDialog extends StatefulWidget {
   const CreateCompanyDialog({Key? key}) : super(key: key);
@@ -118,7 +119,12 @@ class _CreateCompanyDialogState extends State<CreateCompanyDialog> {
                   )),
                 ],
               ),
+              AppButton(
+                onTap: (){
 
+                },
+                btnText: "Submit",
+              )
             ],
           ),
         ),
@@ -130,6 +136,12 @@ class _CreateCompanyDialogState extends State<CreateCompanyDialog> {
       {required String hint, TextEditingController? controller}) {
     return TextFormField(
       controller: controller,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter some text';
+        }
+        return null;
+      },
       decoration: InputDecoration(
         hintText: hint,
       ),
