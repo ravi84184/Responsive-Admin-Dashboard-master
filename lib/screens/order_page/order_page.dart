@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_admin_dashboard/constants/constants.dart';
+import 'package:responsive_admin_dashboard/constants/responsive.dart';
 import 'package:responsive_admin_dashboard/screens/order_page/controller/order_controller.dart';
+
+import 'create_order_dialog/create_order_dialog.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({Key? key}) : super(key: key);
@@ -41,16 +44,40 @@ class _OrderPageState extends State<OrderPage> {
                   ),
                 ),
                 Spacer(),
-                Container(
-                  decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  child: Text(
-                    "Add Order",
-                    style: TextStyle(
-                      color: secondaryColor,
+                InkWell(
+                  onTap: () async {
+                    if (Responsive.isMobile(context)) {
+                      var result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CreateOrderDialog()));
+                      if (result != null && result == true)
+                        Provider.of<OrderController>(context, listen: false)
+                            .getOrderList(context);
+                    } else {
+                      var result = await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              child: CreateOrderDialog(),
+                            );
+                          });
+                      if (result != null && result == true)
+                        Provider.of<OrderController>(context, listen: false)
+                            .getOrderList(context);
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    child: Text(
+                      "Add Order",
+                      style: TextStyle(
+                        color: secondaryColor,
+                      ),
                     ),
                   ),
                 ),

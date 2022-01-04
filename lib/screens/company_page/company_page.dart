@@ -46,16 +46,26 @@ class _CompanyPageState extends State<CompanyPage> {
                 ),
                 Spacer(),
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
                     if (Responsive.isMobile(context)) {
+                      var result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CreateCompanyDialog()));
+                      if (result != null && result == true)
+                        Provider.of<CompanyController>(context, listen: false)
+                            .getCompanyList(context);
                     } else {
-                      showDialog(
+                      var result = await showDialog(
                           context: context,
                           builder: (context) {
                             return Dialog(
                               child: CreateCompanyDialog(),
                             );
                           });
+                      if (result != null && result == true)
+                        Provider.of<CompanyController>(context, listen: false)
+                            .getCompanyList(context);
                     }
                   },
                   child: Container(

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_admin_dashboard/constants/constants.dart';
+import 'package:responsive_admin_dashboard/constants/responsive.dart';
 import 'package:responsive_admin_dashboard/screens/payment_page/controller/payment_controller.dart';
+
+import 'create_payment_dialog/create_payment_dialog.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({Key? key}) : super(key: key);
@@ -41,16 +44,40 @@ class _PaymentPageState extends State<PaymentPage> {
                   ),
                 ),
                 Spacer(),
-                Container(
-                  decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  child: Text(
-                    "Add Payment",
-                    style: TextStyle(
-                      color: secondaryColor,
+                InkWell(
+                  onTap: () async {
+                    if (Responsive.isMobile(context)) {
+                      var result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CreatePaymentDialog()));
+                      if (result != null && result == true)
+                        Provider.of<PaymentController>(context, listen: false)
+                            .getPaymentList(context);
+                    } else {
+                      var result = await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              child: CreatePaymentDialog(),
+                            );
+                          });
+                      if (result != null && result == true)
+                        Provider.of<PaymentController>(context, listen: false)
+                            .getPaymentList(context);
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    child: Text(
+                      "Add Payment",
+                      style: TextStyle(
+                        color: secondaryColor,
+                      ),
                     ),
                   ),
                 ),
