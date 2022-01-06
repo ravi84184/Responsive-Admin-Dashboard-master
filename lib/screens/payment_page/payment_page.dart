@@ -119,11 +119,18 @@ class _PaymentPageState extends State<PaymentPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Icon(Icons.edit),
+                              /*Icon(Icons.edit),
                               SizedBox(
                                 width: 10,
+                              ),*/
+                              InkWell(
+                                onTap: () {
+                                  data.deletePayment(context, model.paymentId);
+                                },
+                                child: Icon(
+                                  Icons.delete,
+                                ),
                               ),
-                              Icon(Icons.delete),
                             ],
                           ),
                         ],

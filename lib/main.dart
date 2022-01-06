@@ -22,31 +22,31 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Ravi',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (context) => Controller(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => CompanyController(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => OrderController(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => PaymentController(),
-          ),
-          ChangeNotifierProvider(
-            create: (context) => DashboardController(),
-          ),
-        ],
-        child: DashBoardScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => Controller(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CompanyController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => OrderController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => PaymentController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DashboardController(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Ravi',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: DashBoardScreen(),
       ),
     );
   }

@@ -119,11 +119,18 @@ class _OrderPageState extends State<OrderPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Icon(Icons.edit),
+                              /*Icon(Icons.edit),
                               SizedBox(
                                 width: 10,
+                              ),*/
+                              InkWell(
+                                onTap: (){
+                                  data.deleteOrder(context, model.orderId);
+                                },
+                                child: Icon(
+                                  Icons.delete,
+                                ),
                               ),
-                              Icon(Icons.delete),
                             ],
                           ),
                         ],

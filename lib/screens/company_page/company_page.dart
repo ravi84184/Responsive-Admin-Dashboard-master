@@ -117,11 +117,18 @@ class _CompanyPageState extends State<CompanyPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Icon(Icons.edit),
+                              /*Icon(Icons.edit),
                               SizedBox(
                                 width: 10,
+                              ),*/
+                              InkWell(
+                                onTap: () {
+                                  data.deleteCustomer(context, model.id);
+                                },
+                                child: Icon(
+                                  Icons.delete,
+                                ),
                               ),
-                              Icon(Icons.delete),
                             ],
                           ),
                         ],

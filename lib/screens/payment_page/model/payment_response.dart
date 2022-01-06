@@ -26,7 +26,7 @@ class PaymentResponse extends CommonResponse {
 }
 
 class PaymentPayload {
-  late String orderId;
+  late String paymentId;
   late String companyId;
   late String type;
   late String date;
@@ -34,7 +34,7 @@ class PaymentPayload {
   late String companyName;
 
   PaymentPayload.fromJson(Map<String, dynamic> json) {
-    orderId = json['order_id'] ?? "";
+    paymentId = json['payment_id'] ?? "";
     companyId = json['company_id'] ?? "";
     type = json['type'] ?? "";
     date = json['date'] ?? "";
@@ -44,7 +44,7 @@ class PaymentPayload {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['order_id'] = this.orderId;
+    data['order_id'] = this.paymentId;
     data['company_id'] = this.companyId;
     data['type'] = this.type;
     data['date'] = this.date;

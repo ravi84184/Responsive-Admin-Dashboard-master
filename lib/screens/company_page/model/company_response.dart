@@ -26,7 +26,7 @@ class CompanyResponse extends CommonResponse {
 }
 
 class CompanyPayload {
-  late String id;
+  late int id;
   late String companyName;
   late String companyAddress;
   late String companyEmail;
@@ -38,7 +38,7 @@ class CompanyPayload {
   late String gstNo;
 
   CompanyPayload.fromJson(Map<String, dynamic> json) {
-    id = json['id'] ?? "";
+    id = int.parse(json['company_id']);
     companyName = json['company_name'] ?? "";
     companyAddress = json['company_address'] ?? "";
     companyEmail = json['company_email'] ?? "";

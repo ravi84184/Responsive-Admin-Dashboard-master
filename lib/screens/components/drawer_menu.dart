@@ -21,28 +21,28 @@ class DrawerMenu extends StatelessWidget {
               svgSrc: 'assets/icons/Dashboard.svg',
               tap: () {
                 Provider.of<Controller>(context, listen: false)
-                    .changeMenu(MenuItem.Dashboard);
+                    .changeMenu(context,MenuItem.Dashboard);
               }),
           DrawerListTile(
               title: 'Customer',
               svgSrc: 'assets/icons/BlogPost.svg',
               tap: () {
                 Provider.of<Controller>(context, listen: false)
-                    .changeMenu(MenuItem.Customer);
+                    .changeMenu(context,MenuItem.Customer);
               }),
           DrawerListTile(
               title: 'Order',
               svgSrc: 'assets/icons/Message.svg',
               tap: () {
                 Provider.of<Controller>(context, listen: false)
-                    .changeMenu(MenuItem.Order);
+                    .changeMenu(context,MenuItem.Order);
               }),
           DrawerListTile(
               title: 'Payment',
               svgSrc: 'assets/icons/Statistics.svg',
               tap: () {
                 Provider.of<Controller>(context, listen: false)
-                    .changeMenu(MenuItem.Payment);
+                    .changeMenu(context,MenuItem.Payment);
               }),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: appPadding * 2),

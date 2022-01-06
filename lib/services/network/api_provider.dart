@@ -55,6 +55,32 @@ class APIProviderIml {
     return CompanyResponse.fromJson(response.data);
   }
 
+  /// api for add customer
+  Future<GeneralResponse> addCompany(context, map) async {
+    Response response;
+    print("===== addCompany Response Start =======");
+    FormData data = FormData.fromMap(map);
+    response = await _apiClient.post("/company_controller.php", data: data);
+    print("data ${response.data}");
+    print("===== addCompany Response End =======");
+    return GeneralResponse.fromJson(response.data);
+  }
+
+  /// api for delete customer
+  Future<GeneralResponse> deleteCustomer(context, id) async {
+    Response response;
+    print("===== deleteCustomer Response Start =======");
+    Map<String, dynamic> map = {
+      "ACTION_KEY": "DELETE_COMPANY",
+      "company_id": id,
+    };
+    FormData data = FormData.fromMap(map);
+    response = await _apiClient.post("/company_controller.php", data: data);
+    print("data ${response.data}");
+    print("===== deleteCustomer Response End =======");
+    return GeneralResponse.fromJson(response.data);
+  }
+
   /// api for get all customer list
   Future<OrderResponse> fetchAllOrderList(context) async {
     Response response;
@@ -68,6 +94,33 @@ class APIProviderIml {
     return OrderResponse.fromJson(response.data);
   }
 
+  /// api for add Order
+  Future<GeneralResponse> addOrder(context, map) async {
+    Response response;
+    print("===== addOrder Response Start =======");
+    FormData data = FormData.fromMap(map);
+    response = await _apiClient.post("/order_controller.php", data: data);
+    print("${response.data}");
+    print("===== addOrder Response End =======");
+    return GeneralResponse.fromJson(response.data);
+  }
+
+  /// api for delete Order
+  Future<GeneralResponse> deleteOrder(context, id) async {
+    Response response;
+    print("===== deleteOrder Response Start =======");
+    Map<String, dynamic> map = {
+      "ACTION_KEY": "DELETE_ORDER",
+      "order_id": id,
+    };
+    print(map);
+    FormData data = FormData.fromMap(map);
+    response = await _apiClient.post("/order_controller.php", data: data);
+    print("${response.data}");
+    print("===== deleteOrder Response End =======");
+    return GeneralResponse.fromJson(response.data);
+  }
+
   /// api for get all customer list
   Future<PaymentResponse> fetchAllPaymentList(context) async {
     Response response;
@@ -79,5 +132,32 @@ class APIProviderIml {
     print("${response.data}");
     print("===== fetchAllPaymentList Response End =======");
     return PaymentResponse.fromJson(response.data);
+  }
+
+  /// api for delete Payment
+  Future<GeneralResponse> deletePayment(context, id) async {
+    Response response;
+    print("===== deletePayment Response Start =======");
+    Map<String, dynamic> map = {
+      "ACTION_KEY": "DELETE_PAYMENT",
+      "payment_id": id,
+    };
+    print(map);
+    FormData data = FormData.fromMap(map);
+    response = await _apiClient.post("/payment_controller.php", data: data);
+    print("${response.data}");
+    print("===== deletePayment Response End =======");
+    return GeneralResponse.fromJson(response.data);
+  }
+
+  /// api for add payment
+  Future<GeneralResponse> addPayment(context, map) async {
+    Response response;
+    print("===== addPayment Response Start =======");
+    FormData data = FormData.fromMap(map);
+    response = await _apiClient.post("/payment_controller.php", data: data);
+    print("${response.data}");
+    print("===== addPayment Response End =======");
+    return GeneralResponse.fromJson(response.data);
   }
 }

@@ -14,8 +14,11 @@ class Controller extends ChangeNotifier {
 
   MenuItem selectedMenu = MenuItem.Customer;
 
-  void changeMenu(MenuItem menuItem) {
+  void changeMenu(context, MenuItem menuItem) {
     selectedMenu = menuItem;
+    if (_scaffoldKey.currentState!.isDrawerOpen) {
+      Navigator.pop(context);
+    }
     notifyListeners();
   }
 
